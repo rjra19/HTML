@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Tags used in this docucument: style -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Issue Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Firebase App is always required and must be first -->
+<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-functions.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCHp1k5QEGy-jyYJ_WxxahkoSjHu5_giUc",
+    authDomain: "hw4summer-ab794.firebaseapp.com",
+    databaseURL: "https://hw4summer-ab794.firebaseio.com",
+    projectId: "hw4summer-ab794",
+    storageBucket: "hw4summer-ab794.appspot.com",
+    messagingSenderId: "219890024112"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+        <link href='https://fonts.googleapis.com/css?family=Gravitas%20One' rel='stylesheet'>
+
+</head>
+<body>
+                <h1><img src="media/software.png" class="icon" alt="icon">
+Issue Tracker</h1>
+    <br>
+    <h2>Issue List</h2>  
+    <script src="myScript.js"> </script>
+    <table id="issueTable">
+            <tr>
+                <th>Issue ID</th>
+                <th>Issue Name</th>
+                <th>Issue Type</th>
+                <th>Issue Description</th>
+				<th>Status</th>
+            </tr>
+    </table><br>
+
+<br>
+<br>
+<br>
+	<fieldset>
+    <legend class="legend">Delete an Issue</legend>
+
+    <label>Enter the Issue ID you wish to delete:</label>
+    <input type="text" name="deletedNum" id="del" style="width:15px">
+   <!-- <button onclick="functionDelIssue()" id = "del2">delete issue</button>-->
+		<input type = "button" id = "btnDel">
+	</fieldset>
+    <br>
+<br>
+<fieldset>
+
+
+<legend class="legend">Edit an Issue</legend>
+<label>Issue ID: </label>
+<input type="text" name="editRow" id="edit1" style="width:15px">
+<br>
+<label>Field to Change: </label>
+<select id="column" name="column">
+      <option value="1">Issue Name</option>
+      <option value="2">Issue Type</option>
+	  <option value="3">Issue Description</option>
+      <option value="4">Status</option>
+</select>
+
+<br>
+<input type="text" name="editRowNum" id="edit3" placeholder="text to change" style="width:130px">
+<br>
+<button onclick="editIssue()">edit</button>
+</fieldset>
+
+
+<br>
+    <br>
+	<br>	
+	<fieldset>
+    <legend class="legend">Add a New Issue</legend>
+	<label>&nbsp; &nbsp; Issue Name:</label>
+    <br>
+    <input type="text" name="issueTitle" id = "one">
+    <br>
+    <label>Issue Type:</label>
+    <br>
+    <input type="text"  name="issueType" id = "two">
+    <br>
+    <label>Issue Description:</label>
+    <br>
+    <input type="text" name="issueDescription" id = "three">
+    <br>
+	<label>&nbsp; &nbsp; Status:</label>
+    <br>
+    <input type="text" name="status" id = "four">
+    <br>&nbsp; &nbsp;
+	<button onclick="addIssue()">add issue</button>
+	<br>
+    </fieldset>
+    <br>
+
+
+
+
+    <button onclick="window.print();">
+    Print this Page
+    </button>
+
+
+
+    <script>
+	var j = parseInt("0");
+		const url = 'http://localhost:3000/issues';
+		window.addEventListener('DOMContentLoaded', function () {
+         getIssues();
+        });
+
+
+
+
+
+		function getIssues() {
+var database = firebase.database();
+//var userId = firebase.auth().currentUser.uid;
+myTable = document.getElementById("issueTable");
+    database.ref().once('value', function(snapshot){
+        if(snapshot.exists()){
+            var content = '';
+            snapshot.forEach(function(data){
+                var val = data.val();
+		    	j = j + 1;
+				var tr = document.createElement("tr");
+				var td = document.createElement("td");
+				var txt = document.createTextNode(j);
+				td.appendChild(txt);
+       			tr.appendChild(td);
+
+			 	td = document.createElement("td");
+				txt = document.createTextNode(val.name);
+				td.appendChild(txt);
+       			tr.appendChild(td);
+
+				td = document.createElement("td");
+				txt = document.createTextNode(val.type);
+				td.appendChild(txt);
+       			tr.appendChild(td);
+
+				td = document.createElement("td");
+				txt = document.createTextNode(val.description);
+				td.appendChild(txt);
+       			tr.appendChild(td);
+
+				td = document.createElement("td");
+				txt = document.createTextNode(val.status1);
+				td.appendChild(txt);
+       			tr.appendChild(td);
+				tr.setAttribute("id", j);
+
+				myTable.appendChild(tr);
+
+            });
+
+
+
+                    }
+    });
+
+
+
+       	//	let xhr = new XMLHttpRequest();
+      	//	 xhr.open('GET', url, true);
+      	//	 xhr.onload = function () {
+        //	 renderIssues(this.responseText);
+      // }
+     //  xhr.send();
+     }
+
+
+
+
+	function renderIssues(issues) {
+
+       var issues = JSON.parse((issues));
+	   
+
+			myTable = document.getElementById("issueTable");
+
+			for (var i = 0; i < issues.length; i++) {
+				var tr = document.createElement("tr");
+				var td = document.createElement("td");
+				var txt = document.createTextNode(issues[i].id);
+				td.appendChild(txt);
+       			tr.appendChild(td);
+
+			 	td = document.createElement("td");
+				txt = document.createTextNode(issues[i].name);
+				td.appendChild(txt);
+       			tr.appendChild(td);
+
+				td = document.createElement("td");
+				txt = document.createTextNode(issues[i].type);
+				td.appendChild(txt);
+       			tr.appendChild(td);
+
+				td = document.createElement("td");
+				txt = document.createTextNode(issues[i].description);
+				td.appendChild(txt);
+       			tr.appendChild(td);
+
+				td = document.createElement("td");
+				txt = document.createTextNode(issues[i].status1);
+				td.appendChild(txt);
+       			tr.appendChild(td);
+				tr.setAttribute("id", issues[i].id);
+
+				myTable.appendChild(tr);
+			}	
+		}
+
+
+		/*function functionDelIssue () {
+			function confirmDelete() {
+             return window.confirm('Delete issue?');
+         }
+
+         if (!confirmDelete())
+           return;  
+
+	     const url1 = 'http://localhost:3000/issues';
+		 var id = document.getElementById("del").value;
+         let xhr = new XMLHttpRequest();
+         xhr.open('DELETE', url+'/'+id, true);
+		 var rowToRemove = document.getElementById(id);
+		 rowToRemove.parentNode.removeChild(rowToRemove);
+         xhr.send();
+		 document.getElementById("del").value = "";
+		}*/
+		/*function functionDelIssue(){
+			//ref = new firebase("hw4summer-ab794.firebaseapp.com");
+			//ref.child("del").removeValue();
+			var rowToRemove = document.getElementById(id);
+			rowToRemove.remove();
+			//rowToRemove.parentNode.removeChild(rowToRemove);
+			//document.getElementById("del").value = "";
+		}*/
+		var remove = document.getElementById('del');
+		remove.addEventListener('btnDel',e =>{
+			var dbDelete = firebase.database().ref().remove();
+
+
+			});
+
+
+		function addIssue() {
+			var nameV = document.getElementById("one").value;
+			var typeV = document.getElementById("two").value;
+			var descriptionV = document.getElementById("three").value;
+			var status1V = document.getElementById("four").value;
+			j = j + 1;
+			var postData = {
+	id : j,
+    name : nameV,
+    type : typeV,
+    description : descriptionV,
+    status1 : status1V
+  };
+			var newPostKey = firebase.database().ref().child('posts').push().key;
+			var updates = {};
+ 			 updates[newPostKey] = postData;
+			firebase.database().ref().update(updates);
+
+
+
+			/*
+			let payload = {};
+			payload["name"] = nameV;
+			payload["type"] = typeV;
+			payload["description"] = descriptionV;
+			payload["status1"] = status1V;
+			payload = JSON.stringify(payload);
+
+
+			let xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8')
+			xhr.send(payload);*/
+
+
+			var myTable = document.getElementById("issueTable");
+			var tRows = myTable.getElementsByTagName('tr');
+			var numRows = tRows.length;
+
+			for (var i = numRows - 1; i > 0; i--) {
+   				myTable.removeChild(tRows[i]);
+			}
+			getIssues();	
+        }
+
+
+
+
+		function editIssue() {
+			var issueId = document.getElementById("edit1").value;
+			var selector = document.getElementById("column");
+			var selected = selector[selector.selectedIndex].value;
+
+			var updated = {};
+			var text = document.getElementById("edit3").value; 
+				if (selected == 1) {
+					updated.name = text;
+					updated.type = document.getElementById(issueId).firstChild.nextSibling.nextSibling.innerHTML;
+					updated.description = document.getElementById(issueId).firstChild.nextSibling.nextSibling.nextSibling.innerHTML;
+					updated.status1 = document.getElementById(issueId).firstChild.nextSibling.nextSibling.nextSibling.nextSibling.innerHTML;
+					document.getElementById(issueId).firstChild.nextSibling.innerHTML = text;
+
+				} else if (selected == 2) {
+					updated.type = text;
+					updated.name = document.getElementById(issueId).firstChild.nextSibling.innerHTML;
+					updated.description = document.getElementById(issueId).firstChild.nextSibling.nextSibling.nextSibling.innerHTML;
+					updated.status1 = document.getElementById(issueId).firstChild.nextSibling.nextSibling.nextSibling.nextSibling.innerHTML;	
+					document.getElementById(issueId).firstChild.nextSibling.nextSibling.innerHTML = text;
+
+
+				} else if (selected == 3) {
+					updated.description = text;
+					updated.name = document.getElementById(issueId).firstChild.nextSibling.innerHTML;
+					updated.type = document.getElementById(issueId).firstChild.nextSibling.nextSibling.innerHTML;
+					updated.status1 = document.getElementById(issueId).firstChild.nextSibling.nextSibling.nextSibling.nextSibling.innerHTML;	
+					document.getElementById(issueId).firstChild.nextSibling.nextSibling.nextSibling.innerHTML = text;
+
+
+				} else {
+					updated.status1 = text;
+					updated.name = document.getElementById(issueId).firstChild.nextSibling.innerHTML;
+					updated.type = document.getElementById(issueId).firstChild.nextSibling.nextSibling.innerHTML;
+					updated.description = document.getElementById(issueId).firstChild.nextSibling.nextSibling.nextSibling.innerHTML;
+					document.getElementById(issueId).firstChild.nextSibling.nextSibling.nextSibling.nextSibling.innerHTML = text;
+
+
+				}
+
+				var payload = JSON.stringify(updated);
+				let xhr = new XMLHttpRequest();
+                xhr.open('PUT', url+'/'+issueId, true);
+                xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8')
+				xhr.send(payload);
+				document.getElementById("edit1").value = "";
+				document.getElementById("edit3").value = "";
+		}
+    </script>
+    <noscript>For full functionality, please enable JavaScript.</noscript>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Tags used in this docucument: style -->
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--	<style>
+		table, th, td {border:1px solid black;}
+		#addIssue {text-decoration: underline; color: blue}
+</style>-->
+	<link rel="stylesheet" type="text/css" href="style.css">
+	    <link href='https://fonts.googleapis.com/css?family=Gravitas%20One' rel='stylesheet'>
+</head>
+<body>
+			        <h1><img src="/media/software.png" class="icon" alt="icon">
+Issue Tracker</h1>
+    <br>
+    <h2>Issue List</h2>
+    <!--<button type="button" id="addIssue">Add Issue +</button> -->
+        <form action="/deleteConfirmation.html">
+    <input type="submit" value="Delete Issue">
+	</form>
+	<form action="/addIssue.html">
+    <input type="submit" value="Add Issue +">
+    	</form>
+        		<form action="/deletedIssue.html">
+    <input type="submit" value="Hide Closed Issues">
+	</form>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Issue ID</th>
+				<th>Issue Name</th>
+				<th>Issue Type</th>
+				<th>Issue Description</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr class="closedIssue">
+			<td>1<span id="closed"> (closed)</span></td>	
+			<td><a href="closedIssue.html">Add Issue html</a></td>
+			<td>Basic HTML</td>
+			<td>Create addIssue.html for Add Issue button.</td>
+		</tr>
+
+		<tr>
+			<td>2</td>	
+			<td><a href="openIssue1.html">Add Issue CSS</a></td>
+			<td>CSS</td>
+			<td>Create stylesheet for addIssue.html.</td>
+		</tr>
+
+		<tr>
+			<td>3</td>	
+			<td><a href="openIssue2.html">Firebase website</a></td>
+			<td>Website management</td>
+			<td>Initialize the firebase website for the third project.</td>
+		</tr>
+		</tbody>
+	</table><br>
+	<button onclick="window.print();">
+	Print this Page
+	</button>
+	<noscript>For full functionality, please enable JavaScript.</noscript>
+
+</body>
+</html>

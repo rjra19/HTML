@@ -1,0 +1,7 @@
+{
+  "issues": [
+    { "id": 1, "name": "Add Issue CSS", "type": "CSS", "description": "Create stylesheet for addIssue.html.", "status1": "open" },
+    { "id": 2, "name": "Firebase website", "type": "Website management", "description": "Initialize the firebase website for the third project.", "status1": "open" },
+    { "id": 3, "name": "Picture index.html", "type": "Media", "description": "Add a picture to the index.html file in WebP format.", "status1": "open" }
+  ]
+}

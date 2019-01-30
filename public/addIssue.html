@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Tags used in this docucument: style -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Add Issue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	    <link href='https://fonts.googleapis.com/css?family=Gravitas%20One' rel='stylesheet'>
+</head>
+<body>
+		        <h1><img src="media/software.png" class="icon" alt="icon">
+Issue Tracker</h1>
+    <br>
+	<script src="myScript.js"> </script> 
+	
+	<fieldset>
+	<legend id ="legctr">Add Issue</legend>
+	<div id="add">
+	<label>Issue Title</label>
+	<br>
+	<input type="text" name="issueTitle" id = "one">
+	<br>
+	<br>
+	<label>Issue Type</label>
+	<br>
+	<input type="text"  name="issueType" id = "two">
+	<br>
+	<br>
+	<label>Issue Description</label>
+	<br>
+	<input type="text" name="issueDescription" id = "three">
+	<br>
+	<br>
+	<label>Issue Priority: Low</label>
+    <input type="range" name="issuePriority">
+	<label> High</label>
+	<br>
+	<br>
+	<label>Issue Attachment</label>
+	<br>
+	<input type="file" name="issueAttachment" multiple>
+	<br>
+	<br>
+
+	<!--<form action="/addedNewIssue.html" onclick="myfunction()">
+    <input type="submit" value="Submit Issue">
+	</form>
+	<form action="/addIssue.html">
+	<input type="submit" value="Reset">
+	</form>
+				<form action="/issueTracker.html">
+	<input type="submit" value="Cancel">
+	</form>
+-->
+<button onclick="myfunction()">submit issue</button>
+
+<!--<button onclick="function2()">Save Changes</button>-->
+<a href ="issueTracker.html" >back</a>
+
+
+	</div>
+	</fieldset>
+<!--<script src="myScript.js"> </script> -->
+	
+	</script>
+
+	<noscript>For full functionality, please enable JavaScript.</noscript>
+</body>
+</html>

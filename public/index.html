@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--Tags used in this document: <html>, <head>, <title>, <base>, <link>, <meta> -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HTML5</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Gravitas%20One' rel='stylesheet'>
+    
+  </head>
+  <body>
+        <h1><img src="media/software.png" class="icon" alt="icon">
+Issue Tracker</h1>
+    <br>
+    <form action="/login.html">
+    <input type="submit" value="Login">
+	</form>
+	<form action="/signUp.html">
+    <input type="submit" value="Sign Up">
+  </form>  
+  
+ <!--<script>
+   if(navigator.serviceWorker){
+
+     navigator.serviceWorker.register('offline.js');
+   }
+ </script>-->
+
+ <script>
+   if ('serviceWorker' in navigator) {
+  // Register a service worker hosted at the root of the
+  // site using the default scope.
+  navigator.serviceWorker.register('offline.js').then(function(registration) {
+    console.log('Service worker registration succeeded:', registration);
+  }, /*catch*/ function(error) {
+    console.log('Service worker registration failed:', error);
+  });
+} else {
+  console.log('Service workers are not supported.');
+}
+ 
+ 
+ </script>
+  
+
+ 
+	<noscript>For full functionality, please enable JavaScript.</noscript>
+
+  </body>
+</html>
+
